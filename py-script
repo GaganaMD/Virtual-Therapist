@@ -1,0 +1,30 @@
+import openai
+
+
+openai.api_key = 'your API key'
+
+def get_openai_response(prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-002",
+        prompt=prompt,
+        max_tokens=150
+    )
+    return response.choices[0].text.strip()
+
+def main():
+    print("Virtual Therapist: Hello! I'm Virtual Therapist, here to listen to your problems and provide advice. Share what's on your mind, or type 'exit' to end the conversation.")
+    
+    while True:
+        user_input = input("You: ")
+
+        if user_input.lower() == 'exit':
+            print("Virtual Therapist: Take care! Feel free to come back anytime.")
+            break
+
+        prompt = f"You: {user_input}\nVirtual Therapist:"
+        response = get_openai_response(prompt)
+        
+        print(f"Virtual Therapist: {response}")
+
+if __name__ == "__main__":
+    main()
